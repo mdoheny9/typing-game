@@ -75,10 +75,12 @@ tile_set = SubResource("TileSet_k3n1d")
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
 
-[node name="Skeleton" parent="." instance=ExtResource("6_i8ckm")]
+[node name="EnemyContainer" type="Node2D" parent="."]
+
+[node name="Skeleton" parent="EnemyContainer" instance=ExtResource("6_i8ckm")]
 position = Vector2(89, -2)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Skeleton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="EnemyContainer/Skeleton"]
 texture_filter = 1
 offset_left = -27.0
 offset_top = 10.0
@@ -87,5 +89,5 @@ offset_bottom = 19.0
 theme_override_fonts/normal_font = ExtResource("7_vons5")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
-text = "[center]hello[/center]"
+text = "[center][color=#888888]hello[/color][/center]"
 scroll_active = false

@@ -18,14 +18,32 @@ public partial class Skeleton : CharacterBody2D
 	// textlabel variables
 	RichTextLabel prompt;
 	String prompt_text;
+	
+	// colour variables 
+	[Export] Color Green = new Color("#00ff00");
+	[Export] Color White = new Color("#ffffff");
 
+	public void setNextChar(int nextCharIndex) { // nonoptimal >.<
+		string green_text = getBbcodeColourTag(Green) + prompt_text.Substring(0, nextCharIndex) + getBbcodeEndColourTag();
+		// if (nextCharIndex == prompt_text.Length) white_text = ""
+		string white_text = nextCharIndex != prompt_text.Length ? getBbcodeColourTag(White) + prompt_text.Substring(nextCharIndex, prompt_text.Length - nextCharIndex) + getBbcodeEndColourTag() : "";
+		
+		prompt.ParseBbcode("[center]" + green_text + white_text + "[/center]");
+	}
+	public string getBbcodeColourTag(Color color) {
+		return "[color=#" + color.ToHtml(false) + "]"; // return unique colour string
+	}
+	public string getBbcodeEndColourTag() {
+		return "[/color]";
+	}
+	
 	public override void _Ready() {
 		var currentScene = GetTree().CurrentScene;
 		string sceneName = currentScene.Name;
 		player = (Player)GetTree().Root.GetNode(sceneName).GetNode("Player");
 		_skeletonSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		
-		prompt = (RichTextLabel)GetTree().Root.GetNode(sceneName).GetNode("Skeleton").GetNode("RichTextLabel");
+		prompt = GetNode<RichTextLabel>("RichTextLabel");
 		prompt_text = StripBBCode(prompt.Text); 
 	}
 	
