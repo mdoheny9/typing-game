@@ -2,16 +2,24 @@ using Godot;
 using System;
 
 public partial class Player : CharacterBody2D
-{
+{	
+	// ======= references =======
+	private AnimatedSprite2D _playerSprite;
+	
+	// === movement variables ===
 	[Export]
 	private int speed = 50;
-
-	private AnimatedSprite2D _playerSprite;
 	private Vector2 currentVelocity;
 	private String direction = "down";
+	
+	// === animation variables ===
+	private bool isAttacking = false;
 
 	public override void _Ready() {
 		_playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		
+		// connect signals
+		_playerSprite.AnimationFinished += OnAttackAnimationFinished;
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -24,8 +32,24 @@ public partial class Player : CharacterBody2D
 
 		updateAnimation();
 	}
+	
+	public void playDirectedAttack(string direction) {
+		isAttacking = true;
+		_playerSprite.Animation = "attack_" + direction;
+		_playerSprite.Play();
+	}
+	
+	private void OnAttackAnimationFinished() {
+		string animationString = _playerSprite.Animation.ToString().Substring(0, 6); // get first 6 characters of animation name
+		if (animationString == "attack") {
+			isAttacking = false;
+		}
+	}
 
 	private void updateAnimation() {
+		if (isAttacking) {
+			return;
+		}
 		if (currentVelocity.Length() == 0) { // if currentVelocity's magnitude is zero,
 			_playerSprite.Animation = "idle_" + direction; // play idle animation
 			_playerSprite.Play();

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PromptResource" load_steps=2 format=3 uid="uid://c6a3p0hjglcnr"]
+
+[ext_resource type="Script" uid="uid://bri3irmb7wfkr" path="res://enemy/prompt/PromptResource.cs" id="1_mqvk0"]
+
+[resource]
+script = ExtResource("1_mqvk0")
+prompts = Array[String](["hello", "goodbye", "ember", "solace", "ethereal", "drift", "whisper", "petal", "glow", "meadow", "breeze"])
+metadata/_custom_type_script = "uid://bri3irmb7wfkr"

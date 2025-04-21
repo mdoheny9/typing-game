@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://s2c45kady3d4"]
+[gd_scene load_steps=16 format=4 uid="uid://s2c45kady3d4"]
 
 [ext_resource type="Texture2D" uid="uid://dsrlrex0w70vg" path="res://assets/Tiles/Grass_Middle.png" id="1_712nc"]
 [ext_resource type="Script" uid="uid://j4pstj8rx4a2" path="res://levels/World.cs" id="1_legw5"]
@@ -7,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://tt7blghct7cy" path="res://assets/Tiles/Cliff_Tile.png" id="4_legw5"]
 [ext_resource type="PackedScene" uid="uid://b2lsxqrd5ti47" path="res://player/player.tscn" id="5_687qm"]
 [ext_resource type="PackedScene" uid="uid://jwqdu2cx6je2" path="res://enemy/skeleton.tscn" id="6_i8ckm"]
-[ext_resource type="FontFile" uid="uid://dgb2y10hcf3yb" path="res://assets/Fonts/NESCyrillic.ttf" id="7_vons5"]
+[ext_resource type="Script" uid="uid://pqym5kskt8ps" path="res://enemy/EnemySpawner.cs" id="9_687qm"]
+[ext_resource type="Script" uid="uid://cr5r7w2uopow3" path="res://enemy/prompt/PromptList.cs" id="9_lmpr0"]
+[ext_resource type="Resource" uid="uid://c6a3p0hjglcnr" path="res://enemy/prompt/prompt_list.tres" id="10_lmpr0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gbfbk"]
 texture = ExtResource("1_712nc")
@@ -77,17 +79,24 @@ zoom = Vector2(3, 3)
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="Skeleton" parent="EnemyContainer" instance=ExtResource("6_i8ckm")]
-position = Vector2(89, -2)
+[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("spawn_points")]
+script = ExtResource("9_687qm")
+enemy_scn = ExtResource("6_i8ckm")
+spawn_points = [NodePath("SpawnPoint"), NodePath("SpawnPoint2"), NodePath("SpawnPoint3"), NodePath("SpawnPoint4")]
+eps = 0.5
 
-[node name="RichTextLabel" type="RichTextLabel" parent="EnemyContainer/Skeleton"]
-texture_filter = 1
-offset_left = -27.0
-offset_top = 10.0
-offset_right = 27.0
-offset_bottom = 19.0
-theme_override_fonts/normal_font = ExtResource("7_vons5")
-theme_override_font_sizes/normal_font_size = 8
-bbcode_enabled = true
-text = "[center][color=#888888]hello[/color][/center]"
-scroll_active = false
+[node name="SpawnPoint" type="Node2D" parent="EnemySpawner"]
+position = Vector2(-192, -108)
+
+[node name="SpawnPoint2" type="Node2D" parent="EnemySpawner"]
+position = Vector2(192, -108)
+
+[node name="SpawnPoint3" type="Node2D" parent="EnemySpawner"]
+position = Vector2(192, 108)
+
+[node name="SpawnPoint4" type="Node2D" parent="EnemySpawner"]
+position = Vector2(-192, 108)
+
+[node name="PromptList" type="Node" parent="."]
+script = ExtResource("9_lmpr0")
+PromptData = ExtResource("10_lmpr0")

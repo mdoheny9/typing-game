@@ -1,8 +1,9 @@
-[gd_scene load_steps=54 format=3 uid="uid://jwqdu2cx6je2"]
+[gd_scene load_steps=55 format=3 uid="uid://jwqdu2cx6je2"]
 
 [ext_resource type="Texture2D" uid="uid://bajco5g23gxcd" path="res://assets/Enemies/Skeleton.png" id="1_j7igh"]
 [ext_resource type="Script" uid="uid://bv68divo7jxe4" path="res://enemy/Skeleton.cs" id="1_ncfh6"]
 [ext_resource type="Texture2D" uid="uid://b22fj1qciyy2d" path="res://assets/Enemies/SkeletonINVERTED.png" id="2_ncfh6"]
+[ext_resource type="FontFile" uid="uid://dgb2y10hcf3yb" path="res://assets/Fonts/NESCyrillic.ttf" id="4_iwk34"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iifgy"]
 atlas = ExtResource("1_j7igh")
@@ -392,10 +393,19 @@ script = ExtResource("1_ncfh6")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_lv0vf")
-animation = &"walk_down"
-frame = 4
-frame_progress = 0.134505
+animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_nettl")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+offset_left = -27.0
+offset_top = 10.0
+offset_right = 27.0
+offset_bottom = 19.0
+theme_override_fonts/normal_font = ExtResource("4_iwk34")
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+scroll_active = false
