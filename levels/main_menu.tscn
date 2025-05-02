@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2uvcayqlfb6x"]
+
+[ext_resource type="Script" uid="uid://dol5gfcd63uok" path="res://levels/MainMenu.cs" id="1_6ymyu"]
+[ext_resource type="PackedScene" uid="uid://830xofju6y4m" path="res://levels/main_menu_background.tscn" id="2_7rktv"]
+[ext_resource type="FontFile" uid="uid://dgb2y10hcf3yb" path="res://assets/Fonts/NESCyrillic.ttf" id="3_3ye4h"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6ymyu")
+
+[node name="MainMenuBackground" parent="." instance=ExtResource("2_7rktv")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.5
+offset_top = -75.0
+offset_right = 142.5
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="GameOverLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_3ye4h")
+theme_override_font_sizes/font_size = 55
+text = "welcome to a super cool typing game"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_3ye4h")
+theme_override_font_sizes/font_size = 36
+text = "Start game"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
