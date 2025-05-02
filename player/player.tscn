@@ -1,7 +1,8 @@
-[gd_scene load_steps=70 format=3 uid="uid://b2lsxqrd5ti47"]
+[gd_scene load_steps=71 format=3 uid="uid://b2lsxqrd5ti47"]
 
 [ext_resource type="Script" uid="uid://4jgb5sk2ah6b" path="res://player/Player.cs" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://dwt0w62bkhht4" path="res://assets/Player/Player.png" id="2_g1dw6"]
+[ext_resource type="Script" uid="uid://boer8kt1hainm" path="res://player/Health.cs" id="2_yw30f"]
 [ext_resource type="Texture2D" uid="uid://dpomjtphyg2mr" path="res://assets/Player/PlayerINVERTED.png" id="3_g1dw6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ejfk"]
@@ -518,8 +519,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hiqhm"]
 size = Vector2(15, 20)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_rkbax")
+
+[node name="Health" type="Node2D" parent="."]
+script = ExtResource("2_yw30f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

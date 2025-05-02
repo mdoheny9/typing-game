@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="typing_game"
-run/main_scene="uid://s2c45kady3d4"
+run/main_scene="uid://b2uvcayqlfb6x"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,10 @@ PromptList="res://enemy/prompt/PromptList.cs"
 [dotnet]
 
 project/assembly_name="typing_game"
+
+[global_group]
+
+player=""
 
 [input]
 

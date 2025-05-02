@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://s2c45kady3d4"]
+[gd_scene load_steps=17 format=4 uid="uid://s2c45kady3d4"]
 
 [ext_resource type="Texture2D" uid="uid://dsrlrex0w70vg" path="res://assets/Tiles/Grass_Middle.png" id="1_712nc"]
 [ext_resource type="Script" uid="uid://j4pstj8rx4a2" path="res://levels/World.cs" id="1_legw5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://pqym5kskt8ps" path="res://enemy/EnemySpawner.cs" id="9_687qm"]
 [ext_resource type="Script" uid="uid://cr5r7w2uopow3" path="res://enemy/prompt/PromptList.cs" id="9_lmpr0"]
 [ext_resource type="Resource" uid="uid://c6a3p0hjglcnr" path="res://enemy/prompt/prompt_list.tres" id="10_lmpr0"]
+[ext_resource type="FontFile" uid="uid://dgb2y10hcf3yb" path="res://assets/Fonts/NESCyrillic.ttf" id="11_re8x6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gbfbk"]
 texture = ExtResource("1_712nc")
@@ -100,3 +101,46 @@ position = Vector2(-192, 108)
 [node name="PromptList" type="Node" parent="."]
 script = ExtResource("9_lmpr0")
 PromptData = ExtResource("10_lmpr0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnemiesKilledLabel" type="Label" parent="CanvasLayer/VBoxContainer/TopRow"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_re8x6")
+theme_override_font_sizes/font_size = 35
+text = "defeated: "
+
+[node name="EnemiesKilledValue" type="Label" parent="CanvasLayer/VBoxContainer/TopRow"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_re8x6")
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PhaseLabel" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_re8x6")
+theme_override_font_sizes/font_size = 35
+text = "phase: "
+
+[node name="PhaseValue" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("11_re8x6")
+theme_override_font_sizes/font_size = 35
+text = "0"

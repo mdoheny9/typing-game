@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://jwqdu2cx6je2"]
+[gd_scene load_steps=56 format=3 uid="uid://jwqdu2cx6je2"]
 
 [ext_resource type="Texture2D" uid="uid://bajco5g23gxcd" path="res://assets/Enemies/Skeleton.png" id="1_j7igh"]
 [ext_resource type="Script" uid="uid://bv68divo7jxe4" path="res://enemy/Skeleton.cs" id="1_ncfh6"]
@@ -387,7 +387,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nettl"]
 size = Vector2(14, 19)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_iwk34"]
+radius = 19.0
+
 [node name="Skeleton" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_ncfh6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -409,3 +413,11 @@ theme_override_fonts/normal_font = ExtResource("4_iwk34")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
 scroll_active = false
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_iwk34")
+
+[connection signal="body_entered" from="AttackRange" to="." method="OnAttackRangeBodyEnter"]
+[connection signal="body_exited" from="AttackRange" to="." method="OnAttackRangeBodyExit"]

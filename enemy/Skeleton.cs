@@ -16,7 +16,7 @@ public partial class Skeleton : CharacterBody2D
 	private int speed = 20;
 	private Vector2 currentVelocity;
 	private String direction = "down";
-	private bool within_attack_range = false;
+	// private bool within_attack_range = false;
 	
 	// ==== prompt variables ====
 	private string prompt_text;
@@ -25,6 +25,13 @@ public partial class Skeleton : CharacterBody2D
 	[Export] public Color Green = new Color("#00ff00");
 	[Export] public Color White = new Color("#ffffff");
 	[Export] public Color Grey = new Color("#878787");
+	
+	// ==== attack variables ====
+	[Export] float damage = 50f;
+	[Export] float aps = 2f; // attacks per second
+	float attack_speed;
+	float time_until_attack;
+	bool within_attack_range = false;
 	
 	
 	public override void _Ready() {
@@ -38,6 +45,28 @@ public partial class Skeleton : CharacterBody2D
 		prompt_text = prompt_list.getPrompt();
 		
 		displayPrompt();
+		
+		attack_speed = 1/aps;
+		time_until_attack = attack_speed;
+		
+		// connect signals
+		var attackRange = GetNode<Area2D>("AttackRange");
+		attackRange.BodyEntered += OnAttackRangeBodyEnter;
+		attackRange.BodyExited += OnAttackRangeBodyExit;
+	}
+	
+	public override void _Process(double delta) {
+		if (within_attack_range && time_until_attack <= 0) {
+			Attack();
+			time_until_attack = attack_speed;
+		} else {
+			time_until_attack -= (float)delta;
+		}
+	}
+	
+	public void Attack() {
+		player.GetNode<Health>("Health").Damage(damage);
+		// add player animation too
 	}
 	
 	public void displayPrompt() { // nonoptimal >.<
@@ -96,5 +125,19 @@ public partial class Skeleton : CharacterBody2D
 			_skeletonSprite.Animation = "walk_" + direction; //resets frame count to 0 and changes animation to correct direction
 		}
 		_skeletonSprite.Play();
+	}
+	
+	public void OnAttackRangeBodyEnter(Node2D body) {
+		if (body.IsInGroup("player")) {
+			GD.Print("player in range");
+			within_attack_range = true;
+		}
+	}
+	
+	public void OnAttackRangeBodyExit(Node2D body) {
+		if (body.IsInGroup("player")) {
+			within_attack_range = false;
+			time_until_attack = attack_speed;
+		}
 	}
 }

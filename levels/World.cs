@@ -8,6 +8,8 @@ public partial class World : Node2D
 	private Skeleton active_enemy = null; // reference to "active" skeleton in range 
 	private Node2D enemy_container;
 	private Node2D enemy_spawner;
+	private int enemies_killed = 0;
+	private Label enemies_killed_value;
 	
 	// ==== prompt variables ====
 	int cur_letter_index = -1;
@@ -16,12 +18,11 @@ public partial class World : Node2D
 		player = GetNode<Player>("Player");
 		enemy_container = GetNode<Node2D>("EnemyContainer");
 		enemy_spawner = GetNode<Node2D>("EnemySpawner");
-		
+		enemies_killed_value = GetNode<Label>("CanvasLayer/VBoxContainer/TopRow/EnemiesKilledValue");
 	}
 	
 	public void FindNewActiveEnemy(char typed_character) {
 		foreach (Skeleton enemy in enemy_container.GetChildren()) {
-			// string prompt = (string)GetNode<Skeleton>("Skeleton").getPrompt(); // find active skeleton in range 
 			string prompt = enemy.getPrompt(); // find active skeleton in range
 			char nextChar = prompt[0];
 			if (nextChar == typed_character) {
@@ -55,7 +56,9 @@ public partial class World : Node2D
 						GD.Print("~~ Enemy Defeated </3 ~~");
 						active_enemy.QueueFree(); // remove enemy from scene
 						active_enemy = null; 
-						cur_letter_index = 1; // reset letter index 
+						enemies_killed += 1;
+						enemies_killed_value.Text = enemies_killed.ToString();
+						cur_letter_index = -1; // reset letter index 
 					}
 				} else {
 					GD.Print("incorrectly typed " + typedChar + " instead of " + nextChar);
